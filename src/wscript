@@ -3,8 +3,17 @@ def configure(cfg):
     cfg.extensions_startup_loads.append("imgui-startup.lisp")
     pass
 
+imgui_files = [ "imgui.cc"
+                ]
+                
 def build(bld):
-    bld.extensions_source_files.append(bld.path.find_node("imgui.cc"))
+    print("Imgui build bld.path = %s" % bld.path)
+    for file in imgui_files:
+        node = bld.path.find_node(file)
+        if (node == None):
+            print("Could not find %s" % file)
+        bld.extensions_source_files.append(node)
+    print("bld.extensions_source_files -> %s" % bld.extensions_source_files)
     start_dir = bld.path
     bld.install_files('${PREFIX}/lib/clasp/extensions/imgui-clasp/src/',
         start_dir.ant_glob('**/*.lisp'),

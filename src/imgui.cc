@@ -2,11 +2,9 @@
 #include <clasp/clasp.h>
 #include <clasp/core/translators.h>
 #include <iostream>
-#include <imgui/align.h>
-#include <imgui/seq_io.h>
-#include <imgui/find.h>
+#include "imgui.h"
 
-using namespace imgui;
+//using namespace imgui;
 
 
 PACKAGE_USE("COMMON-LISP");
@@ -22,6 +20,8 @@ void imgui_startup() {
 
   // Include bindings here using clbind
 
+  printf("%s:%d:%s Initilizing IMGUI\n", __FILE__, __LINE__, __FUNCTION__ );
+  IMGUI_CHECKVERSION();
   
 }
  

@@ -16,8 +16,18 @@ def update_dependencies(cfg):
                        "https://github.com/ocornut/imgui.git",
                        label = "master")
     
+imgui_files = [ "imgui/backends/imgui_impl_glfw.cpp",
+                "imgui/backends/imgui_impl_opengl3.cpp",
+                "imgui/imgui.cpp"
+                ]
 def build(bld):
-    bld.extensions_include_dirs.append("extensions/imgui-clasp/imgui/include")
+    print("Imgui build bld.path = %s" % bld.path)
+    for file in imgui_files:
+        node = bld.path.find_node(file)
+        if (node == None):
+            print("Could not find %s" % file)
+        bld.extensions_source_files.append(node)
+    bld.extensions_include_dirs.append("extensions/imgui-clasp/imgui")
     bld.recurse("src",name="build")
     
 def build3(bld):
