@@ -1,0 +1,24 @@
+
+def configure(cfg):
+    cfg.extensions_startup_loads.append("imgui-startup.lisp")
+    pass
+
+def build(bld):
+    bld.extensions_source_files.append(bld.path.find_node("imgui.cc"))
+    start_dir = bld.path
+    bld.install_files('${PREFIX}/lib/clasp/extensions/imgui-clasp/src/',
+        start_dir.ant_glob('**/*.lisp'),
+        cwd=start_dir, relative_trick=True)
+    bld.install_files('${PREFIX}/lib/clasp/extensions/imgui-clasp/src/',
+        start_dir.ant_glob('**/*.asd'),
+        cwd=start_dir, relative_trick=True)
+    bld.install_files('${PREFIX}/lib/clasp/extensions/imgui-clasp/src/',
+        start_dir.ant_glob('**/*.cc'),
+        cwd=start_dir, relative_trick=True)
+    src = bld.path.find_node("imgui-startup.lisp")
+    dest = bld.path.get_bld().parent.parent.parent.make_node('extension-startup-loads/imgui-startup.lisp')
+    bld.extensions_startup_load_output_nodes.append(dest)
+    print("About to add imgui-startup.lisp to %s" % dest.abspath())
+    bld(source=src, target=dest, rule='cp ${SRC} ${TGT}')
+    bld.install_as('${PREFIX}/bin/extension-startup-loads/imgui-startup.lisp', 'imgui-startup.lisp')
+
