@@ -8,6 +8,8 @@ def options(cfg):
     pass
 
 def configure(cfg):
+    cfg.extensions_lib.append("glfw")
+    cfg.extensions_lib.append("gl")
     cfg.recurse("src")
 
 def update_dependencies(cfg):
@@ -17,7 +19,7 @@ def update_dependencies(cfg):
                        label = "master")
     
 imgui_files = [ "imgui/backends/imgui_impl_glfw.cpp",
-                "imgui/backends/imgui_impl_opengl3.cpp",
+                "imgui/backends/imgui_impl_opengl2.cpp",
                 "imgui/imgui_draw.cpp",
                 "imgui/imgui_widgets.cpp",
                 "imgui/imgui_tables.cpp",

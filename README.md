@@ -14,4 +14,6 @@ Build clasp like you usually would - the imgui-clasp extension is automatically 
 brew install glfw
 
 
+## Configuration for linux
 
+sudo apt-get install libglfw3-dev
